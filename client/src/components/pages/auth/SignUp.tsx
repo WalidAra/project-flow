@@ -1,0 +1,153 @@
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { Button } from "@/components/ui/button";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import GoogleAuthButton from "@/components/atoms/GoogleAuthButton";
+import { cn } from "@/lib/utils";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+// import { Spinner } from "@nextui-org/react";
+import { Link } from "react-router-dom";
+
+const formSchema = z.object({
+  email: z.string().email(),
+  password: z.string().min(8),
+  username: z.string().min(3),
+});
+
+const SignUp = ({
+  className,
+  ...props
+}: React.ComponentPropsWithoutRef<"div">) => {
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+      username: "",
+    },
+  });
+
+  function onSubmit(values: z.infer<typeof formSchema>) {
+    console.log(values);
+  }
+
+  return (
+    <Form {...form}>
+      <div className={cn("flex flex-col gap-6", className)} {...props}>
+        <Card>
+          <CardHeader className="text-center">
+            <CardTitle className="text-xl">Join Us</CardTitle>
+            <CardDescription>Register with your Google account</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div>
+              <div className="grid gap-6">
+                <div className="flex flex-col gap-4">
+                  <GoogleAuthButton />
+                </div>
+                <div className="relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border">
+                  <span className="relative z-10 bg-background px-2 text-muted-foreground">
+                    Or register with
+                  </span>
+                </div>
+                <form
+                  onSubmit={form.handleSubmit(onSubmit)}
+                  className="grid gap-6"
+                >
+                  <FormField
+                    control={form.control}
+                    name="username"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Username</FormLabel>
+                        <FormControl>
+                          <Input
+                            type="text"
+                            placeholder="Enter your username"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormDescription>
+                          This is your public display name.
+                        </FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="email"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Email</FormLabel>
+                        <FormControl>
+                          <Input
+                            type="email"
+                            placeholder="m@example.com"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="password"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Password</FormLabel>
+                        <FormControl>
+                          <Input
+                            type="password"
+                            placeholder="Enter your password"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <Button type="submit" className="w-full">
+                    {/* {!true ? <Spinner color="default" size="sm" /> : "Sign up"} */}
+                    Sign up
+                  </Button>
+                </form>
+                <div className="text-center text-sm">
+                  Already have an account?{" "}
+                  <Link to={"/auth/signin"}>
+                    <div className="underline inline underline-offset-4">
+                      Sign in
+                    </div>
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+        <div className="text-balance text-center text-xs text-muted-foreground [&_a]:underline [&_a]:underline-offset-4 [&_a]:hover:text-primary  ">
+          By clicking continue, you agree to our{" "}
+          <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.
+        </div>
+      </div>
+    </Form>
+  );
+};
+
+export default SignUp;

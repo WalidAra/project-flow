@@ -1,0 +1,1 @@
+export {default as error500} from './error500';

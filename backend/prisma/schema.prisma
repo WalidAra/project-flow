@@ -1,0 +1,76 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String
+  password  String
+  image     String?
+  provider  Provider @default(DIRECT)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  projects  Project[]
+}
+
+enum Provider {
+  GOOGLE
+  DIRECT
+}
+
+model Project {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  team        Team
+  status      ProjectStatus
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  ownerId     String
+  owner       User     @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  tasks       Task[]
+}
+
+enum ProjectStatus {
+  IN_PROGRESS
+  COMPLETED
+  PLANING
+  CANCELED
+}
+
+enum Team {
+  WEB
+  MOBILE
+  DEVOPS
+  DESIGN
+  QA
+  PRODUCT
+}
+
+model Task {
+  id          String   @id @default(cuid())
+  tag         String 
+  task        String
+  flag        Flag    @default(FEATURE)
+  duration    Int
+  projectId   String
+  project     Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  dependencies   Task[] @relation("TaskDependency")
+  Task        Task[] @relation("TaskDependency")
+}
+
+enum Flag {
+  FEATURE
+  IMPROVEMENT
+  BUG
+  REFACTOR
+  DOCUMENTATION
+}
+
+// task name , flag{feature, improvement, bug, refactor, documentation}, duration, dependencies
