@@ -1,9 +1,9 @@
-// import { envConfig } from "@/config";
+import { envConfig } from "@/config";
 import { Button } from "../ui/button";
 
 const GoogleAuthButton = () => {
   const handleGoogleAuth = () => {
-    // window.location.href = `${envConfig.apiUrl}/api/public/auth/google`;
+    window.location.href = `${envConfig.apiUrl}/api/public/auth/google`;
   };
 
   return (

@@ -21,8 +21,14 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-// import { Spinner } from "@nextui-org/react";
 import { Link } from "react-router-dom";
+import { Spinner } from "@nextui-org/react";
+import { useToast } from "@/hooks/use-toast";
+import useAuth from "@/hooks/useAuth";
+import { AxiosError } from "axios";
+import { fetchData } from "@/lib";
+import { useMutation } from "@tanstack/react-query";
+import { AccessToken } from "@/types";
 
 const formSchema = z.object({
   email: z.string().email(),
@@ -34,6 +40,8 @@ const SignUp = ({
   className,
   ...props
 }: React.ComponentPropsWithoutRef<"div">) => {
+  const { toast } = useToast();
+  const { setToken } = useAuth();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -43,8 +51,32 @@ const SignUp = ({
     },
   });
 
+  const { isPending, mutate } = useMutation({
+    mutationFn: (values: object) =>
+      fetchData<AccessToken>({
+        endpoint: "signup",
+        feature: "auth",
+        method: "POST",
+        data: values as unknown as object,
+      }),
+    onSuccess: (res) => {
+      const { accessToken } = res.data;
+      setToken(accessToken);
+    },
+    onError: (error: unknown) => {
+      if (error instanceof AxiosError) {
+        console.error("API Error:");
+        toast({
+          title: "Uh oh! Something went wrong.",
+          description: error.response?.data.message,
+          variant: "destructive",
+        });
+      }
+    },
+  });
+
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+    return mutate(values);
   }
 
   return (
@@ -125,7 +157,11 @@ const SignUp = ({
                     )}
                   />
                   <Button type="submit" className="w-full">
-                    {/* {!true ? <Spinner color="default" size="sm" /> : "Sign up"} */}
+                    {isPending ? (
+                      <Spinner color="default" size="sm" />
+                    ) : (
+                      "Sign up"
+                    )}
                     Sign up
                   </Button>
                 </form>
