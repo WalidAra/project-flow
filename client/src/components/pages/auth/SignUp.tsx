@@ -33,7 +33,7 @@ import { AccessToken } from "@/types";
 const formSchema = z.object({
   email: z.string().email(),
   password: z.string().min(8),
-  username: z.string().min(3),
+  name: z.string().min(3),
 });
 
 const SignUp = ({
@@ -47,7 +47,7 @@ const SignUp = ({
     defaultValues: {
       email: "",
       password: "",
-      username: "",
+      name: "",
     },
   });
 
@@ -104,7 +104,7 @@ const SignUp = ({
                 >
                   <FormField
                     control={form.control}
-                    name="username"
+                    name="name"
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel>Username</FormLabel>
@@ -162,7 +162,6 @@ const SignUp = ({
                     ) : (
                       "Sign up"
                     )}
-                    Sign up
                   </Button>
                 </form>
                 <div className="text-center text-sm">
