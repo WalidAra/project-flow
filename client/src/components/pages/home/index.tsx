@@ -138,12 +138,12 @@ const Home = () => {
 
       <DotPattern
         className={cn(
-          "[mask-image:radial-gradient(700px_circle_at_center,white,transparent)] bg-purple-400"
+          "[mask-image:radial-gradient(700px_circle_at_center,white,transparent)] bg-purple-400/30"
         )}
       />
 
       <section className="container border w-[95%] md:max-w-[68%] m-auto rounded-xl overflow-hidden shadow-2xl bg-background z-40">
-        <img src="image.png" className="w-full h-auto" />
+        <img src="image.webp" className="w-full h-auto" />
       </section>
 
       <footer className="bg-gradient-to-b from-background to-secondary mt-24">
