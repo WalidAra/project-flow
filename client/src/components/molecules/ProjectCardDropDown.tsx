@@ -13,7 +13,6 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { DialogClose } from "@radix-ui/react-dialog";
-import { LuPencilLine } from "react-icons/lu";
 import { LuTrash } from "react-icons/lu";
 
 type Props = {
@@ -40,33 +39,7 @@ const ProjectEdit = ({ projectId }: Props) => {
 
   return (
     <div className="flex items-center text-muted-foreground">
-      <Dialog>
-        <DialogTrigger asChild>
-          <Button size={"icon"} variant={"ghost"}>
-            <LuPencilLine />
-          </Button>
-        </DialogTrigger>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Are you absolutely sure?</DialogTitle>
-            <DialogDescription>
-              This action cannot be undone. This will permanently delete your
-              account and remove your data from our servers.
-            </DialogDescription>
-          </DialogHeader>
-
-          <DialogFooter>
-            <Button variant="destructive">Delete</Button>
-
-            <DialogClose asChild>
-              <Button type="button" variant="outline">
-                Close
-              </Button>
-            </DialogClose>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
-
+      
       <Dialog>
         <DialogTrigger asChild>
           <Button size={"icon"} variant={"ghost"}>

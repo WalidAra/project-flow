@@ -17,14 +17,6 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
-// const chartData = [
-//   { month: "January", desktop: 186 },
-//   { month: "February", desktop: 305 },
-//   { month: "March", desktop: 237 },
-//   { month: "April", desktop: 73 },
-//   { month: "May", desktop: 209 },
-//   { month: "June", desktop: 214 },
-// ];
 
 const chartConfig = {
   desktop: {
@@ -45,8 +37,8 @@ export function PertChart({ path }: Props) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Line Chart - Step</CardTitle>
-        <CardDescription>January - June 2024</CardDescription>
+        <CardTitle>Pert chart</CardTitle>
+        <CardDescription>critical path</CardDescription>
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig}>
