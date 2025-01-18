@@ -81,7 +81,7 @@ const Project = () => {
           </Card>
         </div>
         <div className="gap-4 grid sm:grid-cols-2 xl:grid-cols-1">
-          <GantChart />
+          <GantChart path={project.criticalPath} />
           <PertChart path={project.criticalPath} />
         </div>
       </div>

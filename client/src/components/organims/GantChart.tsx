@@ -1,4 +1,3 @@
-
 import { Bar, BarChart, XAxis } from "recharts";
 
 import {
@@ -17,14 +16,9 @@ import {
 
 export const description = "A stacked bar chart with a legend";
 
-const chartData = [
-  { date: "2024-07-15", running: 450, swimming: 300 },
-  { date: "2024-07-16", running: 380, swimming: 420 },
-  { date: "2024-07-17", running: 520, swimming: 120 },
-  { date: "2024-07-18", running: 140, swimming: 550 },
-  { date: "2024-07-19", running: 600, swimming: 350 },
-  { date: "2024-07-20", running: 480, swimming: 400 },
-];
+type Props = {
+  path: { tag: string; duration: number }[];
+};
 
 const chartConfig = {
   running: {
@@ -37,12 +31,22 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
-export function GantChart() {
+export function GantChart({ path }: Props) {
+  const currentDate = new Date();
+  const chartData =
+    path.map((step) => ({
+      date: new Date(
+        currentDate.setDate(currentDate.getDate() + step.duration)
+      ),
+      running: step.duration,
+      swimming: step.duration,
+    })) || [];
+
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Tooltip - Label Formatter</CardTitle>
-        <CardDescription>Tooltip with label formatter.</CardDescription>
+        <CardTitle>Gant graph</CardTitle>
+        <CardDescription>Show critical tasks</CardDescription>
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig}>

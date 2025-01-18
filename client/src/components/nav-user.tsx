@@ -1,10 +1,7 @@
-
 import {
   BadgeCheck,
   Bell,
   ChevronsUpDown,
-  CreditCard,
-
   Sparkles,
 } from "lucide-react";
 
@@ -29,6 +26,7 @@ import { fetchData } from "@/lib";
 import useAuth from "@/hooks/useAuth";
 import { User } from "@/types";
 import Logout from "./atoms/logout";
+import DarkMode from "./molecules/DarkMode";
 
 export function NavUser() {
   const { isMobile } = useSidebar();
@@ -106,14 +104,13 @@ export function NavUser() {
                 <BadgeCheck />
                 Account
               </DropdownMenuItem>
-              <DropdownMenuItem>
-                <CreditCard />
-                Billing
-              </DropdownMenuItem>
+
               <DropdownMenuItem>
                 <Bell />
                 Notifications
               </DropdownMenuItem>
+
+              <DarkMode />
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <Logout />
