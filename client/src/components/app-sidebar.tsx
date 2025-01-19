@@ -23,6 +23,7 @@ import {
   SidebarHeader,
   SidebarRail,
 } from "@/components/ui/sidebar";
+import DarkMode from "./molecules/DarkMode";
 
 // This is sample data.
 const data = {
@@ -165,6 +166,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavProjects projects={data.projects} />
       </SidebarContent>
       <SidebarFooter>
+        <DarkMode />
+
         <NavUser />
       </SidebarFooter>
       <SidebarRail />

@@ -26,7 +26,6 @@ import { fetchData } from "@/lib";
 import useAuth from "@/hooks/useAuth";
 import { User } from "@/types";
 import Logout from "./atoms/logout";
-import DarkMode from "./molecules/DarkMode";
 
 export function NavUser() {
   const { isMobile } = useSidebar();
@@ -110,7 +109,6 @@ export function NavUser() {
                 Notifications
               </DropdownMenuItem>
 
-              <DarkMode />
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <Logout />

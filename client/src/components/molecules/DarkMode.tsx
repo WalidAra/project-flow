@@ -1,6 +1,5 @@
-import { DropdownMenuItem } from "../ui/dropdown-menu";
 import { LuMoonStar } from "react-icons/lu";
-import { Switch } from "../ui/switch";
+import { Switch } from "@/components/ui/switch";
 import { useTheme } from "@/providers/theme-provider";
 import { useCallback } from "react";
 
@@ -12,20 +11,15 @@ const DarkMode = () => {
     setTheme(newTheme);
   }, [setTheme, theme]);
 
-  const handleSwitchChange = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.stopPropagation();
-    toggleTheme();
-  };
-
   return (
-    <DropdownMenuItem className="flex items-center justify-between">
+    <div className="flex w-full items-center justify-between py-2 px-4">
       <div className="flex items-center gap-2">
-        <LuMoonStar className="size-4" />
+        <LuMoonStar className="h-4 w-4" />
         Dark mode
       </div>
 
-      <Switch checked={theme === "dark"} onChange={handleSwitchChange} />
-    </DropdownMenuItem>
+      <Switch checked={theme === "dark"} onCheckedChange={toggleTheme} />
+    </div>
   );
 };
 
