@@ -86,11 +86,12 @@ const AuthController = {
 
         res.cookie("refreshToken", refreshToken, {
           httpOnly: true,
-          secure: true,
+          secure: true, // Only secure in production
           sameSite: "lax",
           path: "/",
           expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
         });
+
         res.redirect(
           `${envConfig.googleJavascriptOrigins}/?token=${accessToken}`
         );
@@ -104,10 +105,7 @@ const AuthController = {
   }) as RequestHandler,
 
   refreshToken: (async (req: Request, res: Response) => {
-    const refreshToken = req.cookies.refreshToken as string | null;
-
-    console.log("refresh token :", refreshToken);
-
+    const refreshToken = req.cookies.refreshToken;
     try {
       const { accessToken } = await AuthService.refresh(refreshToken);
 
