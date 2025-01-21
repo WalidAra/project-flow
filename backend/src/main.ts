@@ -19,8 +19,8 @@ const app: Express = express();
 
 app.use(
   cors({
-    credentials: true,
     origin: envConfig.googleJavascriptOrigins,
+    credentials: true,
   })
 );
 
