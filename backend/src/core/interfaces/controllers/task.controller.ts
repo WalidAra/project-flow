@@ -28,31 +28,6 @@ const TaskController = {
       res.status(500).json(error500);
     }
   },
-  // getTask: async (req: Request, res: Response) => {
-  //   try {
-  //     const { taskId } = req.params;
-
-  //     const result = await TaskService.getTask(taskId);
-
-  //     res.status(200).json({ message: "Task found", data: result });
-  //   } catch (e: unknown) {
-  //     if (e instanceof ValidateError) {
-  //       res.status(e.status).json({ message: e.message, data: null });
-  //     }
-
-  //     res.status(500).json(error500);
-  //   }
-  // },
-  // getTasks: async (req: Request, res: Response) => {
-  //   try {
-  //   } catch (e: unknown) {
-  //     if (e instanceof ValidateError) {
-  //       res.status(e.status).json({ message: e.message, data: null });
-  //     }
-
-  //     res.status(500).json(error500);
-  //   }
-  // },
   updateTask: async (req: Request, res: Response) => {
     try {
       const { id: projectId, taskId } = req.params;

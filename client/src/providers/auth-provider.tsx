@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import LoadingSurface from "@/components/atoms/loading";
 import { fetchData } from "@/lib";
 import { AccessToken } from "@/types";
@@ -49,11 +50,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   return (
     <Auth.Provider
       value={{
-        token: paramToken
-          ? paramToken
-          : data && !isError
-          ? data.data.accessToken
-          : null,
+        token: paramToken || (data && !isError ? data.data.accessToken : null),
         setToken: setParamToken,
         isAuthenticated: !!paramToken || (data && !isError) ? true : false,
       }}

@@ -215,6 +215,10 @@ export function PertTable({ tasks, refetch, projectId }: Props) {
     onSuccess: () => {
       refetch();
     },
+
+    onError: (error: any) => {
+      console.log("error : ", error);
+    },
   });
 
   const handleDeleteTask = (taskId: string) => {
