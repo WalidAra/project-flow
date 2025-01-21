@@ -27,10 +27,11 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       url.searchParams.delete("token");
       window.history.replaceState({}, document.title, url.pathname);
     }
+    console.log("Initial paramToken:", searchToken);
     return searchToken;
   });
 
-  const { data, isError, isLoading } = useQuery({
+  const { data, isError, isLoading, error } = useQuery({
     queryKey: ["refresh"],
     queryFn: () => {
       return fetchData<AccessToken>({
@@ -43,9 +44,19 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     retry: false,
   });
 
+  console.log("useQuery data:", data);
+  console.log("useQuery isError:", isError);
+  console.log("useQuery isLoading:", isLoading);
+  console.log("useQuery error:", error);
+
   if (isLoading) {
     return <LoadingSurface className="w-full h-screen" />;
   }
+
+  const testToken =
+    paramToken || (data && !isError ? data.data.accessToken : null);
+  
+  console.log("AuthProvider testToken:", testToken);
 
   return (
     <Auth.Provider
